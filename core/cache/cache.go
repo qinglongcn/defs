@@ -10,13 +10,13 @@ import (
 
 type NewRistrettoCacheOutput struct {
 	fx.Out
-	Cache *ristretto.Cache[int, int] // 缓存实例
+	Cache *ristretto.Cache // 缓存实例
 }
 
 // NewRistrettoCache 新的缓存实例
 func NewRistrettoCache(lc fx.Lifecycle) (out NewRistrettoCacheOutput, err error) {
 	// 初始化 ristretto 缓存
-	cache, err := ristretto.NewCache(&ristretto.Config[int, int]{
+	cache, err := ristretto.NewCache(&ristretto.Config{
 		NumCounters: 1e7,     // number of keys to track frequency of (10M).
 		MaxCost:     1 << 30, // maximum cost of cache (1GB).
 		BufferItems: 64,      // number of keys per Get buffer.
